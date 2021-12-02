@@ -6,14 +6,14 @@ import (
 
 func Test_solve_first(t *testing.T) {
 	type args struct {
-		values []int
+		values []command
 	}
 	tests := []struct {
 		name string
 		args args
 		want int
 	}{
-		{"default", args{read_input("./input_test.txt")}, 7},
+		{"default", args{read_input("./input_test.txt")}, 150},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -26,14 +26,14 @@ func Test_solve_first(t *testing.T) {
 
 func Test_solve_second(t *testing.T) {
 	type args struct {
-		values []int
+		values []command
 	}
 	tests := []struct {
 		name string
 		args args
 		want int
 	}{
-		{"default", args{read_input("./input_test.txt")}, 5},
+		{"default", args{read_input("./input_test.txt")}, 900},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
