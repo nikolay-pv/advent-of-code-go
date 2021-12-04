@@ -13,15 +13,15 @@ type Input struct {
 	width  int
 }
 
-func read_input(input_file string) Input {
-	input, _ := ioutil.ReadFile(input_file)
-	input_strings := strings.Split(string(input), "\n")
-	values := make([]int, len(input_strings))
+func readInput(inputFile string) Input {
+	input, _ := ioutil.ReadFile(inputFile)
+	inputStrings := strings.Split(string(input), "\n")
+	values := make([]int, len(inputStrings))
 	for i := range values {
-		tmp, _ := strconv.ParseInt(input_strings[i], 2, 0)
+		tmp, _ := strconv.ParseInt(inputStrings[i], 2, 0)
 		values[i] = int(tmp)
 	}
-	return Input{values, len(input_strings[0])}
+	return Input{values, len(inputStrings[0])}
 }
 
 func countOnes(values []int, bitIndex int) int {
@@ -33,17 +33,17 @@ func countOnes(values []int, bitIndex int) int {
 	return counter
 }
 
-func solve_first(values []int, width int) int {
-	half_of_report := len(values) / 2
-	gamma_rate := 0
+func solveFirst(values []int, width int) int {
+	halfOfLength := len(values) / 2
+	gammaRate := 0
 	for j := 0; j != width; j++ { // bit iterator
-		if countOnes(values, j) > half_of_report {
-			gamma_rate += 1 << j
+		if countOnes(values, j) > halfOfLength {
+			gammaRate += 1 << j
 		}
 	}
 	mask := ^(^0 << width) // first n (=width) of ones
-	epsilon_rate := ^gamma_rate & mask
-	return gamma_rate * epsilon_rate
+	epsilonRate := ^gammaRate & mask
+	return gammaRate * epsilonRate
 }
 
 func solveSecond2(input []int, width int, bitcriteria func(highBitCount, inLength int) bool) int {
@@ -62,18 +62,18 @@ func solveSecond2(input []int, width int, bitcriteria func(highBitCount, inLengt
 	return input[0]
 }
 
-func solve_second(input []int, width int) int {
-	first_number := solveSecond2(input, width, func(highBitCount, inLength int) bool {
+func solveSecond(input []int, width int) int {
+	first := solveSecond2(input, width, func(highBitCount, inLength int) bool {
 		return highBitCount >= int(math.Ceil(float64(inLength)/2.0))
 	})
-	second_number := solveSecond2(input, width, func(highBitCount, inLength int) bool {
+	second := solveSecond2(input, width, func(highBitCount, inLength int) bool {
 		return highBitCount < int(math.Ceil(float64(inLength)/2.0))
 	})
-	return first_number * second_number
+	return first * second
 }
 
 func main() {
-	input := read_input("./input.txt")
-	println("Part 1: the answer is", solve_first(input.values, input.width))
-	println("Part 2: the answer is", solve_second(input.values, input.width))
+	input := readInput("./input.txt")
+	println("Part 1: the answer is", solveFirst(input.values, input.width))
+	println("Part 2: the answer is", solveSecond(input.values, input.width))
 }

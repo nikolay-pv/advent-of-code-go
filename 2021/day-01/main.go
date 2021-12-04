@@ -6,17 +6,17 @@ import (
 	"strings"
 )
 
-func read_input(input_file string) []int {
-	input, _ := ioutil.ReadFile(input_file)
-	input_strings := strings.Split(string(input), "\n")
-	values := make([]int, len(input_strings))
+func readInput(inputFile string) []int {
+	input, _ := ioutil.ReadFile(inputFile)
+	inputStrings := strings.Split(string(input), "\n")
+	values := make([]int, len(inputStrings))
 	for i := range values {
-		values[i], _ = strconv.Atoi(input_strings[i])
+		values[i], _ = strconv.Atoi(inputStrings[i])
 	}
 	return values
 }
 
-func solve_first(values []int) int {
+func solveFirst(values []int) int {
 	var counter int
 	for i := len(values) - 1; i != 0; i-- {
 		if (values[i] - values[i-1]) > 0 {
@@ -26,16 +26,16 @@ func solve_first(values []int) int {
 	return counter
 }
 
-func solve_second(values []int) int {
-	var sums_of_three = make([]int, len(values)-2)
+func solveSecond(values []int) int {
+	var sumsOfThree = make([]int, len(values)-2)
 	for i := 0; i != len(values)-2; i++ {
-		sums_of_three[i] = values[i] + values[i+1] + values[i+2]
+		sumsOfThree[i] = values[i] + values[i+1] + values[i+2]
 	}
-	return solve_first(sums_of_three)
+	return solveFirst(sumsOfThree)
 }
 
 func main() {
-	values := read_input("./input.txt")
-	println("Part 1: Depth increased", solve_first(values), "of times.")
-	println("Part 2: Depth increased", solve_second(values), "of times.")
+	values := readInput("./input.txt")
+	println("Part 1: Depth increased", solveFirst(values), "of times.")
+	println("Part 2: Depth increased", solveSecond(values), "of times.")
 }

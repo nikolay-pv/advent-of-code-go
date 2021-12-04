@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func Test_solve_first(t *testing.T) {
+func Test_solveFirst(t *testing.T) {
 	type args struct {
 		values []command
 	}
@@ -13,18 +13,18 @@ func Test_solve_first(t *testing.T) {
 		args args
 		want int
 	}{
-		{"default", args{read_input("./input_test.txt")}, 150},
+		{"default", args{readInput("./input_test.txt")}, 150},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := solve_first(tt.args.values); got != tt.want {
-				t.Errorf("solve_first() = %v, want %v", got, tt.want)
+			if got := solveFirst(tt.args.values); got != tt.want {
+				t.Errorf("solveFirst() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_solve_second(t *testing.T) {
+func Test_solveSecond(t *testing.T) {
 	type args struct {
 		values []command
 	}
@@ -33,12 +33,12 @@ func Test_solve_second(t *testing.T) {
 		args args
 		want int
 	}{
-		{"default", args{read_input("./input_test.txt")}, 900},
+		{"default", args{readInput("./input_test.txt")}, 900},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := solve_second(tt.args.values); got != tt.want {
-				t.Errorf("solve_second() = %v, want %v", got, tt.want)
+			if got := solveSecond(tt.args.values); got != tt.want {
+				t.Errorf("solveSecond() = %v, want %v", got, tt.want)
 			}
 		})
 	}

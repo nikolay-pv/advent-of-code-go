@@ -11,19 +11,19 @@ type command struct {
 	increment int
 }
 
-func read_input(input_file string) []command {
-	input, _ := ioutil.ReadFile(input_file)
-	input_strings := strings.Split(string(input), "\n")
-	values := make([]command, len(input_strings))
+func readInput(inputFile string) []command {
+	input, _ := ioutil.ReadFile(inputFile)
+	inputStrings := strings.Split(string(input), "\n")
+	values := make([]command, len(inputStrings))
 	for i := range values {
-		raw_command := strings.Split(input_strings[i], " ")
+		raw_command := strings.Split(inputStrings[i], " ")
 		value, _ := strconv.Atoi(raw_command[1])
 		values[i] = command{raw_command[0], value}
 	}
 	return values
 }
 
-func solve_first(values []command) int {
+func solveFirst(values []command) int {
 	x := 0 // pointing forwards
 	depth := 0
 	for i := range values {
@@ -39,7 +39,7 @@ func solve_first(values []command) int {
 	return depth * x
 }
 
-func solve_second(values []command) int {
+func solveSecond(values []command) int {
 	x := 0
 	aim := 0 // pointing forwards
 	depth := 0
@@ -58,7 +58,7 @@ func solve_second(values []command) int {
 }
 
 func main() {
-	values := read_input("./input.txt")
-	println("Part 1: the answer is", solve_first(values))
-	println("Part 2: the answer is", solve_second(values))
+	values := readInput("./input.txt")
+	println("Part 1: the answer is", solveFirst(values))
+	println("Part 2: the answer is", solveSecond(values))
 }
