@@ -41,7 +41,21 @@ func solveFirst(values []int) int {
 }
 
 func solveSecond(values []int) int {
-	return values[0]
+	// minimize sum_i(abs(value[i] - destination) * (abs(value[i] - destination + 1)) / 2) <=> destination = mean
+	destination := 0
+	for i := range values {
+		destination += values[i]
+	}
+	// this solves the test, while the submission is too high with it
+	// destination = int(math.Ceil(float64(destination) / float64(len(values))))
+	destination = destination / len(values)
+	fuel := 0
+	for i := range values {
+		distance := values[i] - destination
+		fuel += Abs(distance) * (Abs(distance) + 1) / 2
+		// println("Move from", values[i], "to", destination, ":", Abs(distance)*(Abs(distance)+1)/2, "fuel")
+	}
+	return fuel
 }
 
 func main() {

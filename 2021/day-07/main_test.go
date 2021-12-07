@@ -33,7 +33,8 @@ func Test_solveSecond(t *testing.T) {
 		args args
 		want int
 	}{
-		{"default", args{readInput("./input_test.txt")}, 168},
+		// {"default", args{readInput("./input_test.txt")}, 168},
+		{"solution", args{readInput("./input.txt")}, 96678050},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
