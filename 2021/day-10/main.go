@@ -2,6 +2,7 @@ package main
 
 import (
 	"io/ioutil"
+	"sort"
 	"strings"
 )
 
@@ -61,12 +62,47 @@ func solveFirst(lines []string) int {
 	return score
 }
 
-func solveSecond(values []string) int {
-	return len(values)
+func getMissedClosing(line string) []rune {
+	stack := make([]rune, 0)
+	for _, r := range line {
+		switch r {
+		case '(', '[', '{', '<':
+			stack = append(stack, r)
+		case ')', ']', '}', '>':
+			if len(stack) == 0 || stack[len(stack)-1] != getMatching(r) {
+				return []rune{}
+			}
+			stack = stack[:len(stack)-1]
+		}
+	}
+	for i := range stack {
+		stack[i] = getMatching(stack[i])
+	}
+	return stack
+}
+
+func solveSecond(lines []string) int {
+	errorScores := map[rune]int{')': 1, ']': 2, '}': 3, '>': 4}
+	scores := make([]int, 0, len(lines))
+	for _, line := range lines {
+		missed := getMissedClosing(line)
+		if len(missed) == 0 {
+			continue
+		}
+		score := 0
+		for i := range missed {
+			r := missed[len(missed)-i-1]
+			score *= 5
+			score += errorScores[r]
+		}
+		scores = append(scores, score)
+	}
+	sort.Ints(scores)
+	return scores[len(scores)/2]
 }
 
 func main() {
 	values := readInput("./input.txt")
 	println("Part 1: the answer is", solveFirst(values))
-	// println("Part 2: the answer is", solveSecond(values))
+	println("Part 2: the answer is", solveSecond(values))
 }
