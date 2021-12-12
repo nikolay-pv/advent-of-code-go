@@ -94,6 +94,9 @@ func solveFirst(g Graph) int {
 				paths++
 				continue
 			}
+			if n == g.start {
+				continue
+			}
 			if IsLower(n.label) && didVisit(n, path) {
 				continue
 			}
@@ -105,12 +108,43 @@ func solveFirst(g Graph) int {
 	return paths
 }
 
-func solveSecond(values Graph) int {
-	return len(values.nodes[0].label)
+func solveSecond(g Graph) int {
+	paths := 0
+	queue := make([][]*Node, 1)
+	queueDup := make([]bool, 1)
+	queue[0] = makeVisited(g.start)
+	queueDup[0] = false
+	for len(queue) != 0 {
+		path := queue[0]
+		hasDuplicate := queueDup[0]
+		queue = queue[1:]
+		queueDup = queueDup[1:]
+		for _, n := range g.edges[*path[len(path)-1]] {
+			if n == g.end {
+				paths++
+				continue
+			}
+			if n == g.start {
+				continue
+			}
+			willHaveDuplicate := hasDuplicate
+			if IsLower(n.label) && didVisit(n, path) {
+				if hasDuplicate {
+					continue
+				}
+				willHaveDuplicate = true
+			}
+			v := make([]*Node, len(path))
+			copy(v, path)
+			queue = append(queue, append(v, n))
+			queueDup = append(queueDup, willHaveDuplicate)
+		}
+	}
+	return paths
 }
 
 func main() {
 	values := readInput("./input.txt")
 	println("Part 1: the answer is", solveFirst(values))
-	// println("Part 2: the answer is", solveSecond(values))
+	println("Part 2: the answer is", solveSecond(values))
 }
