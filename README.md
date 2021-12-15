@@ -1,8 +1,8 @@
 # Advent of Code: solutions in GoLang
 
-This repository contains my solutions for [advent of code challenges](https://adventofcode.com).
+This repository contains my solutions for [advent of code challenges](https://adventofcode.com). It is also my longest to date encounter with Go.
 
-If you interested in C++ solutions, visit my other repo: [nikolay-pv/advent-of-code-cpp](https://github.com/nikolay-pv/advent-of-code-cpp).
+If you are interested in a different year or language, check my other repositories:
 
-If you interested in Swift solutions, visit my other repo: [nikolay-pv/advent-of-code-swift](https://github.com/nikolay-pv/advent-of-code-swift).
-
+* C++ solutions (2019): [nikolay-pv/advent-of-code-cpp](https://github.com/nikolay-pv/advent-of-code-cpp).
+* Swift solutions (2015, 2020): [nikolay-pv/advent-of-code-swift](https://github.com/nikolay-pv/advent-of-code-swift).
