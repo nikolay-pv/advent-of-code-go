@@ -148,19 +148,19 @@ func makeAlgorithm(in string) imgAlgorithm {
 
 // utils
 
-func (i image) print() {
-	for _, row := range i {
-		for _, val := range row {
-			if val == 1 {
-				print("#")
-			} else {
-				print(".")
-			}
-		}
-		print("\n")
-	}
-	print("\n")
-}
+// func (i image) print() {
+// 	for _, row := range i {
+// 		for _, val := range row {
+// 			if val == 1 {
+// 				print("#")
+// 			} else {
+// 				print(".")
+// 			}
+// 		}
+// 		print("\n")
+// 	}
+// 	print("\n")
+// }
 
 func bound(i, min, max int) int {
 	if i < min {
