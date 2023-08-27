@@ -1,6 +1,7 @@
 package main
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -33,6 +34,29 @@ func Test_compile(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := compile(tt.args.line); got != tt.want {
 				t.Errorf("compile() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_decrement(t *testing.T) {
+	type args struct {
+		input *[14]int
+	}
+	tests := []struct {
+		name string
+		args args
+		want args
+	}{
+		{"simple", args{&[14]int{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}}, args{&[14]int{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8}}},
+		{"middle", args{&[14]int{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 1}}, args{&[14]int{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 9}}},
+		{"most significant", args{&[14]int{2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}}, args{&[14]int{1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			decrement(tt.args.input)
+			if !reflect.DeepEqual(tt.args.input, tt.want.input) {
+				t.Errorf("slice after decrement() = %v, want %v", tt.args.input, tt.want.input)
 			}
 		})
 	}
